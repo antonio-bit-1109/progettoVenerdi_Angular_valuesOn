@@ -27,7 +27,9 @@
                         <p>Non sei registrato? <a routerLink="/registrazione"> Effettua la registrazione!</a></p>
                     </div>
                     <div>
-                        <p *ngif="wrongCredentials" class="alert-rosso"> Email o password non corrispondono. Riprova.
+                        <p *ngIf="wrongCredentials" class="alert-rosso"> Email o password non corrispondono. Riprova.
+                        </p>
+                        <p *ngIf="notUserRegistered" class="alert-rosso">utente non trovato. Effettua la registrazione.
                         </p>
                     </div>
                 </form>

@@ -12,9 +12,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegistrazioneComponent } from './components/registrazione/registrazione.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegistrazioneComponent],
+  declarations: [AppComponent, LoginComponent, RegistrazioneComponent, HomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
