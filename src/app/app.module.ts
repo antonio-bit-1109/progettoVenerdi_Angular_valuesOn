@@ -15,6 +15,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegistrazioneComponent } from './components/registrazione/registrazione.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { GeneralModalComponent } from './components/general-modal/general-modal.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     RegistrazioneComponent,
     HomeComponent,
     NavbarComponent,
+    GeneralModalComponent,
   ],
   imports: [
     BrowserModule,
