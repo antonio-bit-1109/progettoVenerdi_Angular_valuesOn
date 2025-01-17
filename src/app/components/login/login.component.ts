@@ -16,8 +16,24 @@ export class LoginComponent {
   constructor(private router: Router) {}
 
   public onSubmit(form: any) {
-    const nomeLogin = form.email;
+    const emailLogin = form.email;
     const passwordLogin = form.password;
+
+    // al momento del login
+    // se esiste un oggetto in local storage con chiave 'dataLogin'
+    // e corrisponde ai dati inseriti dall utente faccio fare login
+    if (localStorage.getItem('dataLogin')) {
+      const data: IDataUser = JSON.parse(localStorage.getItem('dataLogin'));
+
+      if (data.email === emailLogin && data.password === passwordLogin) {
+        this.router.navigateByUrl('home');
+        return;
+      } else {
+        this.wrongCredentials = true;
+        this.resetBoolProp();
+        return;
+      }
+    }
 
     // se non esiste local storage, utente non si è registrato.
     // ERRORE: NON SEI REGISTRATO
@@ -34,7 +50,7 @@ export class LoginComponent {
 
     // se localstorage esiste ma i valori non corrispondono a quelli inseriti dall utente
     // ERRORE: CREDENZIALI SBAGLIATE.
-    if (dataUser.nome !== nomeLogin || dataUser.password !== passwordLogin) {
+    if (dataUser.email !== emailLogin || dataUser.password !== passwordLogin) {
       this.wrongCredentials = true;
       this.resetBoolProp();
       return;

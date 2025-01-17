@@ -7,15 +7,23 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { MenubarModule } from 'primeng/menubar';
+import { AvatarModule } from 'primeng/avatar';
 //componenti
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegistrazioneComponent } from './components/registrazione/registrazione.component';
 import { HomeComponent } from './components/home/home.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegistrazioneComponent, HomeComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    RegistrazioneComponent,
+    HomeComponent,
+    NavbarComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -25,6 +33,8 @@ import { HomeComponent } from './components/home/home.component';
     RadioButtonModule,
     FormsModule,
     ReactiveFormsModule,
+    MenubarModule,
+    AvatarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
