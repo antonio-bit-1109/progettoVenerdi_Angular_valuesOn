@@ -26,7 +26,9 @@
         </div>
     </div>
 </nav>
-<div>
-    <p *ngIf="dataUser && dataUser.isUomo"> Benvenuto, {{dataUser.nome}}!</p>
-    <p *ngIf="dataUser && !dataUser.isUomo"> Benvenuta, {{dataUser.nome}}!</p>
+<div class="wrapper-row">
+    <div class="py-1 ps-2">
+        <p class="m-0" *ngIf="dataUser && dataUser.isUomo"> Benvenuto, {{dataUser.nome}}!</p>
+        <p class="m-0" *ngIf="dataUser && !dataUser.isUomo"> Benvenuta, {{dataUser.nome}}!</p>
+    </div>
 </div>
