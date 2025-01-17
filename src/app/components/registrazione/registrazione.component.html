@@ -14,28 +14,40 @@
                         <label for="nome">Nome</label>
                         <input type="text" class="form-control" id="nome" aria-describedby="nome" name="nome"
                             placeholder="Inserisci il tuo nome" formControlName="nome">
-                        <p class="alert-rosso">Il nome è obbligatorio.</p>
+
+                        <p *ngIf="form.controls.nome.hasError('required') && form.controls.nome.touched"
+                            class="alert-rosso">Il nome è obbligatorio.
+                        </p>
                     </div>
                     <!-- cognome -->
                     <div class="form-group my-3">
                         <label for="cognome">Cognome</label>
                         <input type="text" class="form-control" id="cognome" aria-describedby="cognome" name="cognome"
                             placeholder="Inserisci cognome" formControlName="cognome">
-                        <p class="alert-rosso">Il cognome è obbligatorio.</p>
+                        <p *ngIf="form.controls.cognome.hasError('required') && form.controls.cognome.touched"
+                            class="alert-rosso">Il cognome è obbligatorio.
+                        </p>
                     </div>
                     <!-- email -->
                     <div class="form-group my-3">
                         <label for="email">Email</label>
                         <input type="email" class="form-control" id="email" aria-describedby="email" name="email"
                             placeholder="Inserisci Email" formControlName="email">
-                        <p class="alert-rosso">L' email è obbligatoria.</p>
+                        <p *ngIf="form.controls.email.hasError('required') && form.controls.email.touched"
+                            class="alert-rosso">La mail è obbligatoria.
+                        </p>
+                        <p *ngIf="form.controls.email.hasError('email') && form.controls.email.touched"
+                            class="alert-rosso">Inserisci un formato email valido.
+                        </p>
                     </div>
                     <!-- password -->
                     <div class="form-group my-3">
                         <label for="password">Password</label>
                         <input type="password" class="form-control" id="password" aria-describedby="password"
                             name="password" placeholder="Inserisci Password" formControlName="password">
-                        <p class="alert-rosso">La password è obbligatoria.</p>
+                        <p *ngIf="form.controls.password.hasError('required') && form.controls.password.touched"
+                            class="alert-rosso">La password è obbligatoria.
+                        </p>
                     </div>
                     <!-- ripeti password -->
                     <div class="form-group my-3">
@@ -43,7 +55,8 @@
                         <input type="password" class="form-control" id="ripetiPassword"
                             aria-describedby="ripetiPassword" name="ripetiPassword" placeholder="ripeti password"
                             formControlName="ripetiPassword">
-                        <p class="alert-rosso">Ripeti password è obbligatorio.</p>
+                        <p *ngIf="form.controls.ripetiPassword.hasError('required') && form.controls.ripetiPassword.touched"
+                            class="alert-rosso">Ripeti password è obbligatorio.</p>
                     </div>
                     <!-- accetto condizioni -->
                     <div>
@@ -51,9 +64,10 @@
                             I agree all statements in
                             <a>Terms of service</a>
                         </label>
-                        <input class="form-check-input ms-2" type="checkbox" value="" id="form2Example3c" name="accetto"
+                        <input class="form-check-input ms-2" type="checkbox" id="form2Example3c" name="accetto"
                             formControlName="accetto" />
-                        <p class="alert-rosso">L'accettazione dei termini di servizio è obbligatorio.</p>
+                        <p *ngIf="form.controls.accetto.hasError('required') && form.controls.accetto.touched"
+                            class="alert-rosso">L'accettazione dei termini di servizio è obbligatorio.</p>
                     </div>
 
                     <!-- sesso radio buttons-->
@@ -66,26 +80,29 @@
                             </label>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="uomocheck"
-                                    formControlName="checkUomo">
-                                <label class="form-check-label" for="uomocheck">
-                                    Uomo
+                                <input #radioUomo class="form-check-input" type="radio" name="radioUomo" id="radioUomo"
+                                    (change)="setSesso($event )">
+                                <label class="form-check-label" for="radioUomo">
+                                    UOMO
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="donnacheck"
-                                    formControlName="checkDonna">
-                                <label class="form-check-label" for="donnacheck">
-                                    Donna
+                                <input #radioDonna class="form-check-input" type="radio" name="radioDonna"
+                                    id="radioDonna" id="flexRadioDefault2" (change)="setSesso($event )">
+                                <label class="form-check-label" for="radioDonna">
+                                    DONNA
                                 </label>
                             </div>
+
                         </div>
                         <div>
-                            <p class="alert-rosso ">È obbligatorio specificare il proprio sesso.</p>
+                            <!-- <p *ngIf="form.controls.checkDonna.value === false && form.controls.checkUomo.value === false 
+                            && form.controls.checkDonna.touched || form.controls.checkUomo.touched "
+                                class="alert-rosso">È obbligatorio specificare il proprio sesso.</p> -->
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Registrati</button>
+                    <button [disabled]="!getIfFormIsValid()" type="submit" class="btn btn-primary">Registrati</button>
                     <div class="mt-4">
                         <p>Sei già registrato? <a routerLink="/login"> Vai alla pagina di login!</a></p>
                     </div>

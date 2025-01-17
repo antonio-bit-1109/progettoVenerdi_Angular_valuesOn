@@ -8,26 +8,27 @@
         </div>
         <div class="row justify-content-center align-items-center h-100">
             <div class="col-md-8 col-lg-6">
-                <form>
+                <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
                     <div class="form-group my-2">
 
                         <label for="exampleInputEmail1">Email</label>
                         <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Inserisci Email">
+                            placeholder="Inserisci Email" name="email" ngModel required>
 
                     </div>
                     <div class="form-group my-2">
                         <label for="exampleInputPassword1">Password</label>
                         <input type="password" class="form-control" id="exampleInputPassword1"
-                            placeholder="Inserisci Password">
+                            placeholder="Inserisci Password" name="password" ngModel required>
                     </div>
-                    <!-- <div class="form-check my-2">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                    </div> -->
+
                     <button type="submit" class="btn btn-primary">Effettua Login</button>
                     <div class="mt-4">
                         <p>Non sei registrato? <a routerLink="/registrazione"> Effettua la registrazione!</a></p>
+                    </div>
+                    <div>
+                        <p *ngif="wrongCredentials" class="alert-rosso"> Email o password non corrispondono. Riprova.
+                        </p>
                     </div>
                 </form>
             </div>
