@@ -5,3 +5,8 @@ export interface IDataUser {
   email: string;
   isUomo: boolean;
 }
+
+export interface IDataLoginModal {
+  isVisible: boolean;
+  name: string;
+}

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IDataUser } from '../../models/userData.model';
+import { IDataLoginModal, IDataUser } from '../../models/userData.model';
 import { Router } from '@angular/router';
+import { ShowModalService } from '../../services/show-modal.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent {
   public notUserRegistered: boolean = false;
   public wrongCredentials: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private modalService: ShowModalService) {}
 
   public onSubmit(form: any) {
     const emailLogin = form.email;
@@ -27,6 +28,7 @@ export class LoginComponent {
 
       if (data.email === emailLogin && data.password === passwordLogin) {
         this.router.navigateByUrl('home');
+        this.FillReplaySubjectModal(true, data.nome);
         return;
       } else {
         this.wrongCredentials = true;
@@ -58,6 +60,7 @@ export class LoginComponent {
 
     // altrimenti corrispondono, posso redirect alla home
     this.router.navigateByUrl('home');
+    this.FillReplaySubjectModal(true, dataUser.nome);
   }
 
   private resetBoolProp() {
@@ -65,5 +68,17 @@ export class LoginComponent {
       this.notUserRegistered = false;
       this.wrongCredentials = false;
     }, 3000);
+  }
+
+  // metodo per chiamare al servizio e immettere un booleano nel subject
+  //  predisposto alla visualizzazione
+  // del modale in home, una volta fatto redirect
+  private FillReplaySubjectModal(value: boolean, nome: string) {
+    const data: IDataLoginModal = {
+      isVisible: value,
+      name: nome,
+    };
+
+    this.modalService.showModalLogin.next(data);
   }
 }

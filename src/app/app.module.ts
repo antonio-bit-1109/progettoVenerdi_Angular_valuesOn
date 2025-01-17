@@ -9,6 +9,8 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MenubarModule } from 'primeng/menubar';
 import { AvatarModule } from 'primeng/avatar';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
 //componenti
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -37,6 +39,8 @@ import { GeneralModalComponent } from './components/general-modal/general-modal.
     ReactiveFormsModule,
     MenubarModule,
     AvatarModule,
+    DialogModule,
+    InputTextModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
