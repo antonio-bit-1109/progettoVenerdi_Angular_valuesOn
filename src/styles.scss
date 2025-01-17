@@ -3,6 +3,11 @@
 @import "../node_modules/primeng/resources/themes/lara-light-blue/theme.css";
 @import "../node_modules/primeng/resources/primeng.css";
 @import "../node_modules/primeicons/primeicons.css";
+
 .pointer {
   cursor: pointer;
+}
+
+.alert-rosso {
+  color: rgb(194, 19, 19);
 }

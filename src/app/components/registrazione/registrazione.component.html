@@ -14,31 +14,36 @@
                         <label for="nome">Nome</label>
                         <input type="text" class="form-control" id="nome" aria-describedby="nome" name="nome"
                             placeholder="Inserisci il tuo nome" formControlName="nome">
+                        <p class="alert-rosso">Il nome è obbligatorio.</p>
                     </div>
                     <!-- cognome -->
                     <div class="form-group my-3">
                         <label for="cognome">Cognome</label>
                         <input type="text" class="form-control" id="cognome" aria-describedby="cognome" name="cognome"
                             placeholder="Inserisci cognome" formControlName="cognome">
+                        <p class="alert-rosso">Il cognome è obbligatorio.</p>
                     </div>
                     <!-- email -->
                     <div class="form-group my-3">
                         <label for="email">Email</label>
                         <input type="email" class="form-control" id="email" aria-describedby="email" name="email"
                             placeholder="Inserisci Email" formControlName="email">
+                        <p class="alert-rosso">L' email è obbligatoria.</p>
                     </div>
                     <!-- password -->
                     <div class="form-group my-3">
                         <label for="password">Password</label>
                         <input type="password" class="form-control" id="password" aria-describedby="password"
                             name="password" placeholder="Inserisci Password" formControlName="password">
+                        <p class="alert-rosso">La password è obbligatoria.</p>
                     </div>
                     <!-- ripeti password -->
                     <div class="form-group my-3">
-                        <label for="exampleInputEmail1">Ripeti Passord </label>
+                        <label for="exampleInputEmail1">Ripeti Password </label>
                         <input type="password" class="form-control" id="ripetiPassword"
                             aria-describedby="ripetiPassword" name="ripetiPassword" placeholder="ripeti password"
                             formControlName="ripetiPassword">
+                        <p class="alert-rosso">Ripeti password è obbligatorio.</p>
                     </div>
                     <!-- accetto condizioni -->
                     <div>
@@ -48,24 +53,35 @@
                         </label>
                         <input class="form-check-input ms-2" type="checkbox" value="" id="form2Example3c" name="accetto"
                             formControlName="accetto" />
+                        <p class="alert-rosso">L'accettazione dei termini di servizio è obbligatorio.</p>
                     </div>
 
                     <!-- sesso radio buttons-->
-                    <div class="d-flex gap-4 my-3">
+                    <div class="d-flex flex-column gap-2 my-3">
 
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="uomocheck"
-                                formControlName="checkUomo">
-                            <label class="form-check-label" for="uomocheck">
-                                Uomo
+                        <div class="div-wrapper">
+
+                            <label class="form-check-label" for="">
+                                Specificare il proprio sesso:
                             </label>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="uomocheck"
+                                    formControlName="checkUomo">
+                                <label class="form-check-label" for="uomocheck">
+                                    Uomo
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="donnacheck"
+                                    formControlName="checkDonna">
+                                <label class="form-check-label" for="donnacheck">
+                                    Donna
+                                </label>
+                            </div>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="donnacheck"
-                                formControlName="checkDonna">
-                            <label class="form-check-label" for="donnacheck">
-                                Donna
-                            </label>
+                        <div>
+                            <p class="alert-rosso ">È obbligatorio specificare il proprio sesso.</p>
                         </div>
                     </div>
 
