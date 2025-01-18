@@ -4,7 +4,7 @@
         <div class="col-12">
             <h2 class="h2 display-2 text-center">Registrazione</h2>
         </div>
-        <div class="col-sm-12 col-md-8 col-lg-4">
+        <div class="col-sm-10 col-md-8 col-lg-8">
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <!-- nome -->
                 <div class="form-group my-3 d-flex flex-column">
@@ -96,14 +96,10 @@
                         </div>
 
                     </div>
-                    <div>
-                        <!-- <p *ngIf="form.controls.checkDonna.value === false && form.controls.checkUomo.value === false 
-                            && form.controls.checkDonna.touched || form.controls.checkUomo.touched "
-                                class="alert-rosso">È obbligatorio specificare il proprio sesso.</p> -->
-                    </div>
                 </div>
 
-                <button [disabled]="!getIfFormIsValid()" type="submit" class="btn btn-primary">Registrati</button>
+                <p-button [disabled]="!getIfFormIsValid()" type="submit" label="Registrati" icon="pi pi-user"
+                    styleClass="w-10rem mx-auto btn btn-primary mt-2" />
                 <div class="mt-4">
                     <p>Sei già registrato? <a routerLink="/login"> Vai alla pagina di login!</a></p>
                 </div>

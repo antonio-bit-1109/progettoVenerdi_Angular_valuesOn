@@ -21,7 +21,7 @@ export class RegistrazioneComponent {
     password: new FormControl('', [Validators.required]),
     ripetiPassword: new FormControl('', [Validators.required]),
     IsUomoRadio: new FormControl(null, [Validators.required]),
-    accetto: new FormControl('', [Validators.required]),
+    accetto: new FormControl(false, [Validators.required]),
   });
 
   //costrutt
