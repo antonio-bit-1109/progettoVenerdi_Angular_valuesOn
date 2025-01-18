@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IDataUser } from '../../models/userData.model';
 import { SfondoFetchService } from '../../services/sfondo-fetch.service';
+import { UtilityService } from '../../services/utility.service';
 
 @Component({
   selector: 'app-registrazione',
@@ -30,12 +31,13 @@ export class RegistrazioneComponent implements OnInit {
   //costrutt
   constructor(
     private router: Router,
-    private sfondoFetchService: SfondoFetchService
+    private sfondoFetchService: SfondoFetchService,
+    private utilityService: UtilityService
   ) {}
 
   // lancio la fetch a pexels al montaggio del componente
   ngOnInit(): void {
-    let word = this.getRandomWord();
+    let word = this.utilityService.getRandomWord();
     console.log(word);
     this.fetchImage(word);
   }
@@ -49,7 +51,7 @@ export class RegistrazioneComponent implements OnInit {
         let random = Math.floor(Math.random() * val.photos.length);
         const objSources = val.photos;
         if (objSources.length === 0) {
-          let word = this.getRandomWord();
+          let word = this.utilityService.getRandomWord();
           this.fetchImage(word);
         } else {
           this.photos = val.photos[random].src.landscape;
@@ -101,39 +103,39 @@ export class RegistrazioneComponent implements OnInit {
     }
   }
 
-  private getRandomWord() {
-    let getFromVocali = true;
-    let lengthWord = Math.floor(Math.random() * 6);
-    const vocali: string[] = ['a', 'e', 'i', 'o', 'u'];
+  // private getRandomWord() {
+  //   let getFromVocali = true;
+  //   let lengthWord = Math.floor(Math.random() * 6);
+  //   const vocali: string[] = ['a', 'e', 'i', 'o', 'u'];
 
-    let queryParam = '';
+  //   let queryParam = '';
 
-    //prettier-ignore
-    const consonanti: string[] = [
-      'b', 'c', 'd', 'f', 'g',  'l', 'm', 
-      'n', 'p', 'q', 'r', 's', 't', 'v', 'z'
-    ];
+  //   //prettier-ignore
+  //   const consonanti: string[] = [
+  //     'b', 'c', 'd', 'f', 'g',  'l', 'm',
+  //     'n', 'p', 'q', 'r', 's', 't', 'v', 'z'
+  //   ];
 
-    for (let i = 0; i < lengthWord; i++) {
-      if (getFromVocali) {
-        queryParam += this.cicleIt(vocali);
-        getFromVocali = false;
-      } else {
-        queryParam += this.cicleIt(consonanti);
-        getFromVocali = true;
-      }
-    }
+  //   for (let i = 0; i < lengthWord; i++) {
+  //     if (getFromVocali) {
+  //       queryParam += this.cicleIt(vocali);
+  //       getFromVocali = false;
+  //     } else {
+  //       queryParam += this.cicleIt(consonanti);
+  //       getFromVocali = true;
+  //     }
+  //   }
 
-    return queryParam;
-  }
+  //   return queryParam;
+  // }
 
-  private cicleIt(arr: string[]) {
-    const n = Math.floor(Math.random() * arr.length);
+  // private cicleIt(arr: string[]) {
+  //   const n = Math.floor(Math.random() * arr.length);
 
-    for (let i = 0; i < arr.length; i++) {
-      return arr[n];
-    }
+  //   for (let i = 0; i < arr.length; i++) {
+  //     return arr[n];
+  //   }
 
-    return null;
-  }
+  //   return null;
+  // }
 }
