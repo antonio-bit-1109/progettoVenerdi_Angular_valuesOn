@@ -1,7 +1,8 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IDataUser } from '../../models/userData.model';
+import { SfondoFetchService } from '../../services/sfondo-fetch.service';
 
 @Component({
   selector: 'app-registrazione',
@@ -10,9 +11,11 @@ import { IDataUser } from '../../models/userData.model';
   templateUrl: './registrazione.component.html',
   styleUrl: './registrazione.component.scss',
 })
-export class RegistrazioneComponent {
+export class RegistrazioneComponent implements OnInit {
   @ViewChild('radioUomo') radioUomo!: ElementRef;
   @ViewChild('radioDonna') radioDonna!: ElementRef;
+
+  public photos: string | undefined = '';
 
   public form = new FormGroup({
     nome: new FormControl('', [Validators.required]),
@@ -25,7 +28,38 @@ export class RegistrazioneComponent {
   });
 
   //costrutt
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private sfondoFetchService: SfondoFetchService
+  ) {}
+
+  // lancio la fetch a pexels al montaggio del componente
+  ngOnInit(): void {
+    let word = this.getRandomWord();
+    console.log(word);
+    this.fetchImage(word);
+  }
+
+  // se la fetch non da un risultato 'photos' è un array vuoto ,
+  //  rifaccio la fetch finchè non trovo un risultato valido
+  private fetchImage(word: string) {
+    this.sfondoFetchService.getSfondoFromPexels(word).subscribe({
+      next: (val) => {
+        console.log(val);
+        let random = Math.floor(Math.random() * val.photos.length);
+        const objSources = val.photos;
+        if (objSources.length === 0) {
+          let word = this.getRandomWord();
+          this.fetchImage(word);
+        } else {
+          this.photos = val.photos[random].src.landscape;
+        }
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
+  }
 
   // metodi
   public onSubmit() {
@@ -65,5 +99,41 @@ export class RegistrazioneComponent {
       this.radioUomo.nativeElement.checked = false;
       this.form.controls.IsUomoRadio.setValue(false);
     }
+  }
+
+  private getRandomWord() {
+    let getFromVocali = true;
+    let lengthWord = Math.floor(Math.random() * 6);
+    const vocali: string[] = ['a', 'e', 'i', 'o', 'u'];
+
+    let queryParam = '';
+
+    //prettier-ignore
+    const consonanti: string[] = [
+      'b', 'c', 'd', 'f', 'g',  'l', 'm', 
+      'n', 'p', 'q', 'r', 's', 't', 'v', 'z'
+    ];
+
+    for (let i = 0; i < lengthWord; i++) {
+      if (getFromVocali) {
+        queryParam += this.cicleIt(vocali);
+        getFromVocali = false;
+      } else {
+        queryParam += this.cicleIt(consonanti);
+        getFromVocali = true;
+      }
+    }
+
+    return queryParam;
+  }
+
+  private cicleIt(arr: string[]) {
+    const n = Math.floor(Math.random() * arr.length);
+
+    for (let i = 0; i < arr.length; i++) {
+      return arr[n];
+    }
+
+    return null;
   }
 }
