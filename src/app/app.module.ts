@@ -12,6 +12,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { DividerModule } from 'primeng/divider';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 //componenti
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -19,7 +20,6 @@ import { RegistrazioneComponent } from './components/registrazione/registrazione
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { GeneralModalComponent } from './components/general-modal/general-modal.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -45,6 +45,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     InputTextModule,
     NgbModule,
     DividerModule,
+    InputTextModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
