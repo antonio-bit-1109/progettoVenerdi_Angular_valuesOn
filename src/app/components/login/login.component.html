@@ -1,11 +1,7 @@
 <div class="container vh-100">
-    <div class="border border-2 p-4 rounded-5 my-4">
+    <!-- <div class="border border-2 p-4 rounded-5 my-4">
 
-        <div class="row">
-            <div class="col-12">
-                <h2 class="h2 display-2 text-center">Login</h2>
-            </div>
-        </div>
+
         <div class="row justify-content-center align-items-center h-100">
             <div class="col-md-8 col-lg-6">
                 <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
@@ -23,9 +19,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">Effettua Login</button>
-                    <div class="mt-4">
-                        <p>Non sei registrato? <a routerLink="/registrazione"> Effettua la registrazione!</a></p>
-                    </div>
+
                     <div>
                         <p *ngIf="wrongCredentials" class="alert-rosso"> Email o password non corrispondono. Riprova.
                         </p>
@@ -35,7 +29,65 @@
                 </form>
             </div>
         </div>
+    </div> -->
+
+
+
+    <!-- prime ng login  -->
+    <div class="card rounded-5 mt-5">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="h2 display-2 text-center">Login</h2>
+            </div>
+
+            <div class="col-md-5 d-flex flex-column align-items-center justify-content-center gap-3 py-5">
+                <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+                    <div class="d-flex flex-wrap justify-content-center align-items-center gap-2">
+                        <label class="w-6rem">Email</label>
+                        <input pInputText id="username" type="text" class="w-12rem form-control"
+                            placeholder="Inserisci Email" name="email" ngModel required />
+                    </div>
+                    <div class="d-flex flex-wrap justify-content-center align-items-center gap-2">
+                        <label class="w-6rem">Password</label>
+                        <input pInputText id="password" type="password" class="w-12rem form-control"
+                            placeholder="Inserisci Password" name="password" ngModel required />
+                    </div>
+                    <p-button type="submit" label="Login" icon="pi pi-user"
+                        styleClass="w-10rem mx-auto btn btn-primary mt-3" />
+                    <div class="my-4">
+                        <p *ngIf="wrongCredentials" class="alert-rosso"> Email o password non corrispondono. Riprova.
+                        </p>
+                        <p *ngIf="notUserRegistered" class="alert-rosso">utente non trovato. Effettua la registrazione.
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                <p-divider layout="vertical" class="d-none d-md-flex">
+                    <b>OR</b>
+                </p-divider>
+                <p-divider layout="horizontal" class="d-flex d-md-none" [align]="'center'">
+                    <b>OR</b>
+                </p-divider>
+            </div>
+            <div class="col-md-5 d-flex align-items-center justify-content-center py-5 d-flex flex-column">
+                <p class="fs-4">Non sei registrato?</p> <p-button label="Sign Up" icon="pi pi-user-plus"
+                    styleClass="btn btn-success w-10rem" routerLink="/registrazione" />
+            </div>
+
+        </div>
+        <!-- <div class="row">
+            <div class="col-12">
+
+                <div class="mt-4 text-center">
+                    <p>Non sei registrato? <a routerLink="/registrazione"> Effettua la registrazione!</a></p>
+                </div>
+            </div>
+        </div> -->
     </div>
+
+
+
 
 
 </div>
