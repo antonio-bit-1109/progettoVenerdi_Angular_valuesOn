@@ -23,21 +23,27 @@ export class LoginComponent implements OnInit {
     private sfondoFetchService: SfondoFetchService
   ) {}
 
+  // lancio la fetch a pexels al montaggio del componente
   ngOnInit(): void {
     let word = this.getRandomWord();
     console.log(word);
+    this.fetchImage(word);
+  }
+
+  // se la fetch non da un risultato 'photos' è un array vuoto ,
+  //  rifaccio la fetch finchè non trovo un risultato valido
+  private fetchImage(word: string) {
     this.sfondoFetchService.getSfondoFromPexels(word).subscribe({
       next: (val) => {
         console.log(val);
         let random = Math.floor(Math.random() * val.photos.length);
         const objSources = val.photos;
         if (objSources.length === 0) {
-          this.photos = '/assets/images/trasp-good.png';
+          let word = this.getRandomWord();
+          this.fetchImage(word);
         } else {
           this.photos = val.photos[random].src.landscape;
         }
-
-        // this.photos = this.DefaultPhoto;
       },
       error: (err) => {
         console.error(err);
