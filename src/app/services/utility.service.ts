@@ -9,7 +9,7 @@ export class UtilityService {
   // metodo che genera una parola casuale formata da vocale + consonante, di lunghezza 'lengthWord'
   public getRandomWord() {
     let getFromVocali = true;
-    let lengthWord = Math.floor(Math.random() * 6);
+    let lengthWord = Math.floor(Math.random() * 6) + 1;
     const vocali: string[] = ['a', 'e', 'i', 'o', 'u'];
 
     let queryParam = '';
