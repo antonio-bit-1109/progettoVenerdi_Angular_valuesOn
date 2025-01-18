@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IDataLoginModal, IDataUser } from '../../models/userData.model';
 import { Router } from '@angular/router';
 import { ShowModalService } from '../../services/show-modal.service';
+import { SfondoFetchService } from '../../services/sfondo-fetch.service';
+import { ISource } from '../../models/PhotoModel.model';
 
 @Component({
   selector: 'app-login',
@@ -10,11 +12,38 @@ import { ShowModalService } from '../../services/show-modal.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   public notUserRegistered: boolean = false;
   public wrongCredentials: boolean = false;
+  public photos: string | undefined = '';
 
-  constructor(private router: Router, private modalService: ShowModalService) {}
+  constructor(
+    private router: Router,
+    private modalService: ShowModalService,
+    private sfondoFetchService: SfondoFetchService
+  ) {}
+
+  ngOnInit(): void {
+    let word = this.getRandomWord();
+    console.log(word);
+    this.sfondoFetchService.getSfondoFromPexels(word).subscribe({
+      next: (val) => {
+        console.log(val);
+        let random = Math.floor(Math.random() * val.photos.length);
+        const objSources = val.photos;
+        if (objSources.length === 0) {
+          this.photos = '/assets/images/trasp-good.png';
+        } else {
+          this.photos = val.photos[random].src.landscape;
+        }
+
+        // this.photos = this.DefaultPhoto;
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
+  }
 
   public onSubmit(form: any) {
     const emailLogin = form.email;
@@ -80,5 +109,41 @@ export class LoginComponent {
     };
 
     this.modalService.showModalLogin.next(data);
+  }
+
+  private getRandomWord() {
+    let getFromVocali = true;
+    let lengthWord = Math.floor(Math.random() * 6);
+    const vocali: string[] = ['a', 'e', 'i', 'o', 'u'];
+
+    let queryParam = '';
+
+    //prettier-ignore
+    const consonanti: string[] = [
+      'b', 'c', 'd', 'f', 'g',  'l', 'm', 
+      'n', 'p', 'q', 'r', 's', 't', 'v', 'z'
+    ];
+
+    for (let i = 0; i < lengthWord; i++) {
+      if (getFromVocali) {
+        queryParam += this.cicleIt(vocali);
+        getFromVocali = false;
+      } else {
+        queryParam += this.cicleIt(consonanti);
+        getFromVocali = true;
+      }
+    }
+
+    return queryParam;
+  }
+
+  private cicleIt(arr: string[]) {
+    const n = Math.floor(Math.random() * arr.length);
+
+    for (let i = 0; i < arr.length; i++) {
+      return arr[n];
+    }
+
+    return null;
   }
 }

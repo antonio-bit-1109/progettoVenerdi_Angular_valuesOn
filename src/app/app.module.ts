@@ -13,6 +13,7 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { DividerModule } from 'primeng/divider';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
 //componenti
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -46,6 +47,7 @@ import { GeneralModalComponent } from './components/general-modal/general-modal.
     NgbModule,
     DividerModule,
     InputTextModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

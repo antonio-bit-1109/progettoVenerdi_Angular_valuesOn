@@ -1,4 +1,5 @@
-<div class="container-fluid vh-100 d-flex justify-content-center align-items-center sfondo">
+<div [ngStyle]="{'background-image': photos ? 'url(' + photos + ')' : 'url(\'/assets/images/trasp-good.png\')'}"
+    class="container-fluid vh-100 d-flex justify-content-center align-items-center sfondo">
 
     <!-- prime ng login  -->
     <div class="card rounded-5 bg-white border border-3 p-5">
