@@ -1,18 +1,15 @@
 <div [ngStyle]="{'background-image': photos ? 'url(' + photos + ')' : 'url(\'../../../assets/images/trasp-good.png\')'}"
-    class="container-fluid vh-100 d-flex justify-content-center align-items-center sfondo">
+    class="container-fluid height d-flex justify-content-center align-items-center sfondo">
 
     <div class="row justify-content-center align-items-center bg-white rounded-5 border border-2">
         <div class="col-12">
             <h2 class="h2 display-2 text-center">Registrazione</h2>
         </div>
-        <div class="col-sm-10 col-md-8 col-lg-8">
+        <div class="col-sm-9 col-md-8 col-lg-8">
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <!-- nome -->
                 <div class="form-group my-3 d-flex flex-column">
                     <label for="nome">Nome</label>
-                    <!-- <input type="text" class="form-control" id="nome" aria-describedby="nome" name="nome"
-                            placeholder="Inserisci il tuo nome" formControlName="nome"><input type="text" class="form-control" id="nome" aria-describedby="nome" name="nome"
-                            placeholder="Inserisci il tuo nome" formControlName="nome"> -->
                     <input type="text" pInputText formControlName="nome" class="form-control" name="nome"
                         placeholder="Inserisci il tuo nome" />
 
@@ -51,6 +48,10 @@
                     <p *ngIf="form.controls.password.hasError('required') && form.controls.password.touched"
                         class="alert-rosso">La password è obbligatoria.
                     </p>
+                    <p class="alert-rosso"
+                        *ngIf="form.controls.password.hasError('pattern') && form.controls.password.touched"> La
+                        Password
+                        deve contenere almeno <br> una lettera maiuscola, un numero ed un carattere speciale. </p>
                 </div>
                 <!-- ripeti password -->
                 <div class="form-group my-3">
@@ -68,8 +69,11 @@
                     </label>
                     <input class="form-check-input ms-2" type="checkbox" id="form2Example3c" name="accetto"
                         formControlName="accetto" />
-                    <p *ngIf="form.controls.accetto.hasError('required') && form.controls.accetto.touched"
-                        class="alert-rosso">L'accettazione dei termini di servizio è obbligatorio.</p>
+
+                    <p class="alert-rosso"
+                        *ngIf="form.controls.accetto.hasError('CampoAccettoNotChecked') && form.controls.accetto.touched">
+                        Il campo è obbligatorio.
+                    </p>
                 </div>
 
                 <!-- sesso radio buttons-->

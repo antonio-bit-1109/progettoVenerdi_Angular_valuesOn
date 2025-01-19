@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { IDataUser } from '../../models/userData.model';
 import { SfondoFetchService } from '../../services/sfondo-fetch.service';
 import { UtilityService } from '../../services/utility.service';
+import { campoAccettoMustBeTrue } from '../../validators/validators';
 
 @Component({
   selector: 'app-registrazione',
@@ -22,10 +23,16 @@ export class RegistrazioneComponent implements OnInit {
     nome: new FormControl('', [Validators.required]),
     cognome: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.email, Validators.required]),
-    password: new FormControl('', [Validators.required]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$/), // Checks that a password has a minimum of 6 characters, at least 1 uppercase letter, 1 lowercase letter, and 1 number with no spaces.
+    ]),
     ripetiPassword: new FormControl('', [Validators.required]),
     IsUomoRadio: new FormControl(null, [Validators.required]),
-    accetto: new FormControl(false, [Validators.required]),
+    accetto: new FormControl('', [
+      Validators.required,
+      campoAccettoMustBeTrue(), //validatore custom
+    ]),
   });
 
   //costrutt
@@ -102,40 +109,4 @@ export class RegistrazioneComponent implements OnInit {
       this.form.controls.IsUomoRadio.setValue(false);
     }
   }
-
-  // private getRandomWord() {
-  //   let getFromVocali = true;
-  //   let lengthWord = Math.floor(Math.random() * 6);
-  //   const vocali: string[] = ['a', 'e', 'i', 'o', 'u'];
-
-  //   let queryParam = '';
-
-  //   //prettier-ignore
-  //   const consonanti: string[] = [
-  //     'b', 'c', 'd', 'f', 'g',  'l', 'm',
-  //     'n', 'p', 'q', 'r', 's', 't', 'v', 'z'
-  //   ];
-
-  //   for (let i = 0; i < lengthWord; i++) {
-  //     if (getFromVocali) {
-  //       queryParam += this.cicleIt(vocali);
-  //       getFromVocali = false;
-  //     } else {
-  //       queryParam += this.cicleIt(consonanti);
-  //       getFromVocali = true;
-  //     }
-  //   }
-
-  //   return queryParam;
-  // }
-
-  // private cicleIt(arr: string[]) {
-  //   const n = Math.floor(Math.random() * arr.length);
-
-  //   for (let i = 0; i < arr.length; i++) {
-  //     return arr[n];
-  //   }
-
-  //   return null;
-  // }
 }
