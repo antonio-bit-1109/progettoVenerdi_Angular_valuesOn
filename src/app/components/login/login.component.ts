@@ -27,10 +27,21 @@ export class LoginComponent implements OnInit {
 
   // lancio la fetch a pexels al montaggio del componente
   ngOnInit(): void {
-    // richiamo il servizio di utility che mi fornisce una parola random
-    let word = this.utilityService.getRandomWord();
-    console.log(word);
-    this.fetchImage(word);
+    this.getRandomWorldAPI();
+  }
+
+  // metodo pèr ricavare una parola random tramite chiamata API per poi fornirla  al metodo fetchImage
+  // che fa una chiamata su pexels e ritorna un URL che contiene un immagine , impostata poi come sfondo.
+  private getRandomWorldAPI() {
+    this.utilityService.getRandomWord_API().subscribe({
+      next: (word: string) => {
+        console.log(word);
+        this.fetchImage(word);
+      },
+      error: (err) => {
+        console.error('errore durante la get della parola random:' + err);
+      },
+    });
   }
 
   // se la fetch non da un risultato 'photos' è un array vuoto ,
@@ -42,8 +53,7 @@ export class LoginComponent implements OnInit {
         let random = Math.floor(Math.random() * val.photos.length);
         const objSources = val.photos;
         if (objSources.length === 0) {
-          let word = this.utilityService.getRandomWord();
-          this.fetchImage(word);
+          this.getRandomWorldAPI();
         } else {
           this.photos = val.photos[random].src.landscape;
         }

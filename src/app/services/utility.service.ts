@@ -1,10 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UtilityService {
-  constructor() {}
+  constructor(private Http: HttpClient) {}
 
   // metodo che genera una parola casuale formata da vocale + consonante, di lunghezza 'lengthWord'
   // generata localmente quindi SINCRONA
@@ -47,5 +49,7 @@ export class UtilityService {
   // METODO CHE FA UNA CHIAMATA API AD UN SERVER PER RITORNARE UNA PAROLA RANDOM IN INGLESE
   // FETCH ASINCRONA
 
-  public getRandomWord_API() {}
+  public getRandomWord_API(): Observable<string> {
+    return this.Http.get<string>('https://random-word-api.herokuapp.com/word');
+  }
 }
