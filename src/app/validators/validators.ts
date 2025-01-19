@@ -1,4 +1,9 @@
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import {
+  AbstractControl,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
 
 // validatore personalizzato per il campo accetto del form
 // questa funzione implementa interfaccia validatorFn e restituire un errore se
@@ -20,5 +25,31 @@ export function campoAccettoMustBeTrue(): ValidatorFn {
     }
 
     return { CampoAccettoNotChecked: true };
+  };
+}
+
+// validatore personalizzato per controllare che campo password uguale campo ripeti password
+
+export function IsRipetiPswEqualPsw(): ValidatorFn {
+  // psw: string,
+  // ripetipsw: string
+  return (control: AbstractControl): ValidationErrors | null => {
+    // specifico da quale form group sto prendendo i dati
+    const formGroup = control as FormGroup;
+    const password = formGroup.controls['password'];
+    const ripetiPassword = formGroup.controls['ripetiPassword'];
+
+    if (!password || !ripetiPassword) {
+      return null;
+    }
+
+    // se i valori di password e ripeti password sono uguali, non ci sono errori
+    if (password.value === ripetiPassword.value) {
+      ripetiPassword.setErrors(null);
+    } else {
+      // se i valori non sono uguali imposto errore.
+      ripetiPassword.setErrors({ passwordDiverse: true });
+    }
+    return null;
   };
 }

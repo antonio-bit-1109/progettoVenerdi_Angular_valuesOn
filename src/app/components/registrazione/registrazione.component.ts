@@ -4,7 +4,10 @@ import { Router } from '@angular/router';
 import { IDataUser } from '../../models/userData.model';
 import { SfondoFetchService } from '../../services/sfondo-fetch.service';
 import { UtilityService } from '../../services/utility.service';
-import { campoAccettoMustBeTrue } from '../../validators/validators';
+import {
+  campoAccettoMustBeTrue,
+  IsRipetiPswEqualPsw,
+} from '../../validators/validators';
 
 @Component({
   selector: 'app-registrazione',
@@ -19,21 +22,28 @@ export class RegistrazioneComponent implements OnInit {
 
   public photos: string | undefined = '';
 
-  public form = new FormGroup({
-    nome: new FormControl('', [Validators.required]),
-    cognome: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.email, Validators.required]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.pattern(/^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$/), // Checks that a password has a minimum of 6 characters, at least 1 uppercase letter, 1 lowercase letter, and 1 number with no spaces.
-    ]),
-    ripetiPassword: new FormControl('', [Validators.required]),
-    IsUomoRadio: new FormControl(null, [Validators.required]),
-    accetto: new FormControl('', [
-      Validators.required,
-      campoAccettoMustBeTrue(), //validatore custom
-    ]),
-  });
+  public form = new FormGroup(
+    {
+      nome: new FormControl('', [Validators.required]),
+      cognome: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.email, Validators.required]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.pattern(
+          /^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$/
+        ), // Checks that a password has a minimum of 6 characters, at least 1 uppercase letter, 1 lowercase letter, and 1 number with no spaces.
+      ]),
+      ripetiPassword: new FormControl('', [Validators.required]),
+      IsUomoRadio: new FormControl(null, [Validators.required]),
+      accetto: new FormControl('', [
+        Validators.required,
+        campoAccettoMustBeTrue(), //validatore custom per il campo accetto
+      ]),
+    },
+
+    // il validatore che controlla se psw e ripetipsw sono uguali viene aggiunto alla fine, quando i campi psw e ripeti psw non sono piu undefined ma sono stati inizializzati con dei valori. altrimenti se inseriti nel rispettivo ccampo davano errore di 'undefined'
+    { validators: IsRipetiPswEqualPsw() }
+  );
 
   //costrutt
   constructor(
@@ -107,6 +117,16 @@ export class RegistrazioneComponent implements OnInit {
       this.radioDonna.nativeElement.checked = true;
       this.radioUomo.nativeElement.checked = false;
       this.form.controls.IsUomoRadio.setValue(false);
+    }
+  }
+
+  //metodo al change che controlla che il ripeti password sia uguale alla password
+  public CheckRipetiPswEqualPsw() {
+    let password = this.form.controls.password.value;
+    let ripetiPsw = this.form.controls.ripetiPassword.value;
+
+    if (password !== ripetiPsw) {
+      this.form.valid === false;
     }
   }
 }

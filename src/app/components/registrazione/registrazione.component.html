@@ -56,10 +56,14 @@
                 <!-- ripeti password -->
                 <div class="form-group my-3">
                     <label for="exampleInputEmail1">Ripeti Password </label>
-                    <input type="password" class="form-control" id="ripetiPassword" aria-describedby="ripetiPassword"
-                        name="ripetiPassword" placeholder="ripeti password" formControlName="ripetiPassword">
+                    <input (change)="CheckRipetiPswEqualPsw()" type="password" class="form-control" id="ripetiPassword"
+                        aria-describedby="ripetiPassword" name="ripetiPassword" placeholder="ripeti password"
+                        formControlName="ripetiPassword">
                     <p *ngIf="form.controls.ripetiPassword.hasError('required') && form.controls.ripetiPassword.touched"
                         class="alert-rosso">Ripeti password è obbligatorio.</p>
+                    <p class="alert-rosso"
+                        *ngIf="form.controls.ripetiPassword.hasError('passwordDiverse') && form.controls.ripetiPassword.touched">
+                        le due password non corrispondono.</p>
                 </div>
                 <!-- accetto condizioni -->
                 <div>
