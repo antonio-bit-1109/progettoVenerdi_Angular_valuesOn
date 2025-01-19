@@ -63,7 +63,7 @@
                         class="alert-rosso">Ripeti password è obbligatorio.</p>
                     <p class="alert-rosso"
                         *ngIf="form.controls.ripetiPassword.hasError('passwordDiverse') && form.controls.ripetiPassword.touched">
-                        le due password non corrispondono.</p>
+                        {{form.controls.ripetiPassword.getError('passwordDiverse').message}}</p>
                 </div>
                 <!-- accetto condizioni -->
                 <div>

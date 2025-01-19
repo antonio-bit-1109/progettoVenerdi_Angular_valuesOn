@@ -7,6 +7,7 @@ export class UtilityService {
   constructor() {}
 
   // metodo che genera una parola casuale formata da vocale + consonante, di lunghezza 'lengthWord'
+  // generata localmente quindi SINCRONA
   public getRandomWord() {
     let getFromVocali = true;
     let lengthWord = Math.floor(Math.random() * 6) + 1;
@@ -42,4 +43,9 @@ export class UtilityService {
 
     return null;
   }
+
+  // METODO CHE FA UNA CHIAMATA API AD UN SERVER PER RITORNARE UNA PAROLA RANDOM IN INGLESE
+  // FETCH ASINCRONA
+
+  public getRandomWord_API() {}
 }

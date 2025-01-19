@@ -48,7 +48,15 @@ export function IsRipetiPswEqualPsw(): ValidatorFn {
       ripetiPassword.setErrors(null);
     } else {
       // se i valori non sono uguali imposto errore.
-      ripetiPassword.setErrors({ passwordDiverse: true });
+      // posso impostare campi aggiuntivi all interno dell errore
+      //  e riprenderli dall html tramite il metodo getError('nomeErrore').message ad esempio
+      ripetiPassword.setErrors({
+        passwordDiverse: {
+          valid: true,
+          message:
+            'le due password non corrispondono Zio. Sono un messaggio custom.',
+        },
+      });
     }
     return null;
   };
